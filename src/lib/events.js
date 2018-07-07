@@ -22,7 +22,7 @@ export function watch() {
         includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
       });
     } else {
-      throw err;
+      throw error;
     }
   })
   
