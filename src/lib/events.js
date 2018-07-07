@@ -7,6 +7,7 @@ export function watch() {
     host: 'localhost',
     user: 'nodeserver',
     password: 'wkPZ6lo4GvB4tsrI',
+    debug: true,
   };
 
   var zongji = new ZongJi(config);
