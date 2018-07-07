@@ -14,9 +14,7 @@ export function watch() {
     evt.dump();
   });
   
-  // Binlog must be started, optionally pass in filters
   zongji.start({
-    serverId: 1,
     includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
   });
 
