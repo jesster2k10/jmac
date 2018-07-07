@@ -11,35 +11,23 @@ export function watch() {
     debug: true,
   };
 
-  var zongji = new ZongJi(config);
-  zongji.on('binlog', function(evt) {
-    logger.dub(evt);
-  });
-
-  zongji.on('error', function(error) {
-    if (error.code == 'PROTOCOL_CONNECTION_LOST') {
-      logger.debug(error);
-      zongji.start({
-        includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
-      });
-    } else {
-      throw error;
-    }
-  })
-
   const EventWatcher = MySQLEvents(config);
   EventWatcher.add(
-    `easyjet.data.notice.value`,
+    `easyjet`,
     (oldRow, newRow, event) => {
       if (oldRow === null) {
+        logger.debug(newRow);
         logger.debug('Added new row to table');
       }
    
       if (newRow === null) {
+        logger.debug(oldRow);
         logger.debug('Deleted a row from table');
       }
    
       if (oldRow !== null && newRow !== null) {
+        logger.debug(oldRow);
+        logger.debug(newRow);
         logger.debug('Updated a row from table');
       }
     },
