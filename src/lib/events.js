@@ -9,6 +9,17 @@ export function watch() {
     password: '',
   };
 
+  var zongji = new ZongJi(config);
+  zongji.on('binlog', function(evt) {
+    evt.dump();
+  });
+  
+  // Binlog must be started, optionally pass in filters
+  zongji.start({
+    serverId: 1,
+    includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
+  });
+
   const EventWatcher = MySQLEvents(config);
   EventWatcher.add(
     `easyjet.data.notice.value`,
