@@ -1,14 +1,23 @@
 import MySQLEvents from 'mysql-events';
-import mysql from 'mysql';
+import ZongJi from 'zongji';
 import { logger } from './logger';
-import { env } from './env';
 
 export function watch() {
   const config = {
-    host: 'localhost',
+    host: '35.237.105.84',
     user: 'root',
     password: '',
   };
+
+  var zongji = new ZongJi(config);
+  zongji.on('binlog', function(evt) {
+    evt.dump();
+  });
+  
+  // Binlog must be started, optionally pass in filters
+  zongji.start({
+    includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
+  });
 
   const EventWatcher = MySQLEvents(config);
   EventWatcher.add(
