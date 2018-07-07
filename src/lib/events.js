@@ -18,6 +18,7 @@ export function watch() {
 
   zongji.on('error', function(error) {
     if (error.code == 'PROTOCOL_CONNECTION_LOST') {
+      logger.debug(error);
       zongji.start({
         includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
       });
