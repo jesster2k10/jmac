@@ -29,7 +29,7 @@ export function watch() {
 
   const EventWatcher = MySQLEvents(config);
   EventWatcher.add(
-    `easyjet`,
+    `easyjet.data.notice.value`,
     (oldRow, newRow, event) => {
       if (oldRow === null) {
         logger.debug('Added new row to table');
