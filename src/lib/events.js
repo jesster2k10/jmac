@@ -4,7 +4,7 @@ import { logger } from './logger';
 
 export function watch() {
   const config = {
-    host: '35.237.105.84',
+    host: 'localhost',
     user: 'root',
     password: '',
   };
