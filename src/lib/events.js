@@ -26,10 +26,6 @@ export function watch() {
       throw error;
     }
   })
-  
-  zongji.start({
-    includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
-  });
 
   const EventWatcher = MySQLEvents(config);
   EventWatcher.add(
