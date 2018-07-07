@@ -29,7 +29,7 @@ export function watch() {
 
   const EventWatcher = MySQLEvents(config);
   EventWatcher.add(
-    `easyjet.data.notice.value`,
+    `easyjet`,
     (oldRow, newRow, event) => {
       if (oldRow === null) {
         logger.debug('Added new row to table');
@@ -43,6 +43,7 @@ export function watch() {
         logger.debug('Updated a row from table');
       }
     },
+    'Active'
   )
 
 }
