@@ -5,8 +5,8 @@ import { logger } from './logger';
 export function watch() {
   const config = {
     host: 'localhost',
-    user: 'root',
-    password: '',
+    user: 'nodeserver',
+    password: 'wkPZ6lo4GvB4tsrI',
   };
 
   var zongji = new ZongJi(config);
