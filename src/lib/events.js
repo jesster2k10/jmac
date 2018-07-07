@@ -13,7 +13,7 @@ export function watch() {
 
   var zongji = new ZongJi(config);
   zongji.on('binlog', function(evt) {
-    evt.dump();
+    logger.dub(evt);
   });
 
   zongji.on('error', function(error) {
