@@ -1,4 +1,5 @@
 import MySQLEvents from 'mysql-events';
+import mysql from 'mysql';
 import ZongJi from 'zongji';
 import { logger } from './logger';
 
@@ -14,6 +15,16 @@ export function watch() {
   zongji.on('binlog', function(evt) {
     evt.dump();
   });
+
+  zongji.on('error', function(error) {
+    if (error.code == 'PROTOCOL_CONNECTION_LOST') {
+      zongji.start({
+        includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
+      });
+    } else {
+      throw err;
+    }
+  })
   
   zongji.start({
     includeEvents: ['tablemap', 'writerows', 'updaterows', 'deleterows']
