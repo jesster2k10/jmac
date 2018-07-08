@@ -1,6 +1,5 @@
 import MySQLEvents from 'mysql-events';
-import mysql from 'mysql';
-import ZongJi from 'zongji';
+import { io } from './server';
 import { logger } from './logger';
 
 export function watch() {
@@ -15,20 +14,8 @@ export function watch() {
   EventWatcher.add(
     `easyjet`,
     (oldRow, newRow, event) => {
-      if (oldRow === null) {
-        logger.debug(newRow);
-        logger.debug('Added new row to table');
-      }
-   
-      if (newRow === null) {
-        logger.debug(oldRow);
-        logger.debug('Deleted a row from table');
-      }
-   
       if (oldRow !== null && newRow !== null) {
-        logger.debug(oldRow);
-        logger.debug(newRow);
-        logger.debug('Updated a row from table');
+        io.emit('db_updated', { oldRow, newRow });
       }
     },
     'Active'

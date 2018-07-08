@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Socket.io Stest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: black;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: calc(100% - 40%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    h1 {
+      color: white;
+    }
+    ul {
+      background-color: white;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    $(function() {
+      const $list = $('#list');
+      const socket = io.connect('localhost:5000');
+      socket.on('connected', function() {
+        $list.append('<li><strong>Connected to Socket<strong></li>');
+      });
+      socket.on('db_updated', function(data) {
+        $list.append('<li>Database Updated</li>');
+        $list.append('<li>' + data + '</li>')
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Log Page</h1>
+  <div>
+    <ul id="list">
+
+    </ul>
+  </div>
+</body>
+</html>
