@@ -19,6 +19,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "bristol": "^0.4.0",
+    "firebase-admin": "^5.12.1",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
     "koa-send": "^5.0.0",
