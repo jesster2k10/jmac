@@ -25,7 +25,7 @@
   <script>
     $(function() {
       const $list = $('#list');
-      const socket = io.connect('localhost:5000');
+      const socket = io.connect('35.237.105.84:5000');
       socket.on('connected', function() {
         $list.append('<li><strong>Connected to Socket<strong></li>');
       });
