@@ -1,6 +1,12 @@
 import MySQLEvents from 'mysql-events';
-import { io } from './server';
 import { logger } from './logger';
+import * as admin from 'firebase-admin';
+import serviceAccount from '../serviceAccountKey.json';
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://flight-45d3b.firebaseio.com"
+});
 
 export function watch() {
   const config = {
@@ -15,7 +21,16 @@ export function watch() {
     `easyjet`,
     (oldRow, newRow, event) => {
       if (oldRow !== null && newRow !== null) {
-        io.emit('db_updated', { oldRow, newRow });
+        logger.debug('New event');
+
+        const data = newRow.fields;
+        if (data.notice && data.notice.length > 1) {
+          logger.debug('Saving to Firebase');
+
+          const db = admin.database();
+          const ref = db.ref(`/mysql_data/${data.uid}`)
+          ref.push().set(data);
+        }
       }
     },
     'Active'
